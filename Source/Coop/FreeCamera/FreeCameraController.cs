@@ -88,7 +88,7 @@ namespace StayInTarkov.Coop.FreeCamera
             var quitState = coopGC.GetQuitState();
 
             if (_gamePlayerOwner.Player.PlayerHealthController.IsAlive
-                && (Input.GetKey(KeyCode.F9) || (quitState != SITGameComponent.EQuitState.NONE && !_freeCamScript.IsActive))
+                && ((PluginConfigSettings.Instance.CoopSettings.FreecamKeyIngame != null && Input.GetKey(PluginConfigSettings.Instance.CoopSettings.FreecamKeyIngame.Value)) || (quitState != SITGameComponent.EQuitState.NONE && !_freeCamScript.IsActive))
                 && _lastTime < DateTime.Now.AddSeconds(-3))
             {
                 _lastTime = DateTime.Now;

@@ -3,6 +3,7 @@ using BepInEx.Logging;
 using StayInTarkov.Networking;
 using System;
 using System.Net;
+using UnityEngine;
 
 namespace StayInTarkov.Configuration
 {
@@ -103,6 +104,26 @@ namespace StayInTarkov.Configuration
                 {
                     return StayInTarkovPlugin.Instance.Config.Bind
                        ("Coop", "BlackScreenOnDeathTime", 500, new ConfigDescription("How long to wait until your death waits to become a Free Camera")).Value;
+                }
+            }
+
+            public KeyCode? FreecamKeyIngame
+            {
+                get
+                {
+                    string value = StayInTarkovPlugin.Instance.Config.Bind
+                    ("Coop", "FreecamKeyIngame", "F9",
+                        new ConfigDescription("The key to press to enable Free Camera in-game, empty disables")).Value;
+                    //convert to KeyCode
+                    if (Enum.TryParse(value, out KeyCode result))
+                    {
+                        return result;
+                    }
+                    else
+                    {
+                        Logger.LogError($"Invalid KeyCode: {value}");
+                        return null;
+                    }
                 }
             }
 
